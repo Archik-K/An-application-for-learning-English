@@ -1,8 +1,10 @@
+import styles from "./Footer.module.css";
+
 function Footer() {
 	return (
-		<footer className="footer">
-			<div className="container">
-				<ul className="links">
+		<footer className={styles.footer}>
+			<div className={styles.container}>
+				<ul className={styles.links}>
 					<li>
 						<a href="#home">Главная</a>
 					</li>
@@ -16,7 +18,7 @@ function Footer() {
 						<a href="#contact">Контакты</a>
 					</li>
 				</ul>
-				<div className="social">
+				<div className={styles.social}>
 					<a href="https://facebook.com" target="_blank">
 						Facebook
 					</a>

@@ -1,13 +1,15 @@
+import styles from "./Header.module.css";
+
 function Header() {
 	return (
-		<header className="header">
-			<div className="logo">
+		<header className={styles.header}>
+			<div className={styles.logo}>
 				<img
-					className="img_logo"
+					className={styles.img_logo}
 					src="https://egi.edu.kz/wp-content/uploads/2017/10/child_flag_en.png"
 				/>
 			</div>
-			<nav className="nav">
+			<nav className={styles.nav}>
 				<ul>
 					<li>
 						<a href="#home">Главная</a>
