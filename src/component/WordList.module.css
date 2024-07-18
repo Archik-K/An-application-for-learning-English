@@ -1,7 +1,7 @@
 .table {
-	width: 100%;
+	width: 70%;
 	border-collapse: collapse;
-	margin: 20px 0;
+	margin: auto;
 	font-size: 18px;
 	text-align: left;
 }
@@ -28,22 +28,22 @@
 	cursor: pointer;
 }
 
-.button-save {
+.buttonSave {
 	background-color: #4caf50;
 	color: white;
 }
 
-.button-cancel {
+.buttonCancel {
 	background-color: #f44336;
 	color: white;
 }
 
-.button-edit {
+.buttonEdit {
 	background-color: #2196f3;
 	color: white;
 }
 
-.button-delete {
+.buttonDelete {
 	background-color: #ff5722;
 	color: white;
 }

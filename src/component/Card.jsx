@@ -1,17 +1,35 @@
-import ModalContentOne from "./ModalContentOne";
+import React, { useState } from "react";
 import styles from "./Card.module.css";
-import style from "./Header.module.css";
 
-function Card(props) {
+const Card = ({ imgLink, name, title, briefly, isSelected, onSelect }) => {
+	const [showTranslation, setShowTranslation] = useState(false);
+
+	const cardClass = isSelected
+		? `${styles.Card} ${styles.selected}`
+		: styles.Card;
+
+	const handleShowTranslation = (e) => {
+		e.stopPropagation();
+		setShowTranslation(true);
+	};
+
 	return (
-		<div className={styles.Card}>
-			<div className={styles.Card_container}>
-				<img className={style.img} src={props.imgLink} alt={props.title} />
-				<h2>{props.name}</h2>
-				<p>{props.briefly}</p>
-				<ModalContentOne />
-			</div>
+		<div className={cardClass} onClick={onSelect}>
+			<img src={imgLink} alt={title} className={styles.image} />
+			<h2>{title}</h2>
+			<p>{name}</p>
+			{showTranslation ? (
+				<p className={styles.descriptionCard}>{briefly}</p>
+			) : (
+				<button
+					className={styles.translationButton}
+					onClick={handleShowTranslation}
+				>
+					Показать перевод
+				</button>
+			)}
 		</div>
 	);
-}
+};
+
 export default Card;

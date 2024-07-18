@@ -101,10 +101,9 @@ function WordList() {
 		setWords(words.filter((word) => word.id !== id));
 	};
 
-	const saveEdit = (id) => {
-		setWords(words.map((word) => (word.id === id ? editWord : word)));
-		setEditId(null);
-		setEditWord({ english: "", transcription: "", russian: "" });
+	const saveEdit = () => {
+		setWords(words.map((word) => (word.id === editId ? editWord : word)));
+		cancelEdit();
 	};
 
 	const cancelEdit = () => {
@@ -173,12 +172,15 @@ function WordList() {
 							{editId === word.id ? (
 								<>
 									<button
-										onClick={() => saveEdit(word.id)}
-										className={styles.saveButton}
+										onClick={saveEdit}
+										className={`${styles.button} ${styles.buttonSave}`}
 									>
 										Save
 									</button>
-									<button onClick={cancelEdit} className={styles.cancelButton}>
+									<button
+										onClick={cancelEdit}
+										className={`${styles.button} ${styles.buttonCancel}`}
+									>
 										Cancel
 									</button>
 								</>
@@ -186,13 +188,13 @@ function WordList() {
 								<>
 									<button
 										onClick={() => startEdit(word.id, word)}
-										className={styles.editButton}
+										className={`${styles.button} ${styles.buttonEdit}`}
 									>
 										Edit
 									</button>
 									<button
 										onClick={() => deleteWord(word.id)}
-										className={styles.deleteButton}
+										className={`${styles.button} ${styles.buttonDelete}`}
 									>
 										Delete
 									</button>

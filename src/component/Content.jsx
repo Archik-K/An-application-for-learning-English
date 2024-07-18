@@ -1,13 +1,14 @@
-import Cards from "./Cards";
+import React from "react";
 import styles from "./Content.module.css";
 import WordList from "./WordList";
+import List from "./List";
 
 function Content() {
 	return (
 		<div className={styles.content}>
 			<h1>Карточки слов</h1>
 			<section className={styles.Cards}>
-				<Cards />
+				<List />
 			</section>
 			<section>
 				<WordList />
@@ -15,4 +16,5 @@ function Content() {
 		</div>
 	);
 }
+
 export default Content;

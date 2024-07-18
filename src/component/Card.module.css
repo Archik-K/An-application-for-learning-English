@@ -1,11 +1,15 @@
 .Card {
 	display: flex;
-	width: 20rem;
-	height: 35rem;
+	width: 21rem;
+	height: 32rem;
 	background-color: #d7e29ace;
 	border-radius: 2rem;
 	margin: 2rem;
 	transition: transform 0.3s ease;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 3% 1% 3% 1%;
 }
 
 .Card_container {
@@ -18,4 +22,24 @@
 
 .Card:hover {
 	transform: scale(1.2);
+}
+
+.descriptionCard {
+	display: flex;
+	width: 72%;
+}
+
+.translationButton {
+	width: 47%;
+	height: 7%;
+	background-color: #97e838;
+	color: #000;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+.translationButton:hover {
+	background-color: #7ec72e;
 }

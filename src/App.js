@@ -1,3 +1,4 @@
+// App.js
 import "./App.css";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
@@ -14,7 +15,6 @@ function App() {
 }
 
 export default App;
-
 /* //Если не отображается сайт, то код ниже надо скопировать и удалить, потом обратно его вернуть и всё работает.
 //Я просто не додумалась, как иначе сделать)
 
@@ -42,4 +42,5 @@ window.onclick = function (event) {
 	if (event.target === modal) {
 		modal.style.display = "none";
 	}
-}; */
+};
+ */
