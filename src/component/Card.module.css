@@ -1,7 +1,7 @@
 .Card {
 	display: flex;
-	width: 21rem;
-	height: 32rem;
+	width: 20rem;
+	height: 35rem;
 	background-color: #d7e29ace;
 	border-radius: 2rem;
 	margin: 2rem;
@@ -21,7 +21,7 @@
 }
 
 .Card:hover {
-	transform: scale(1.2);
+	transform: scale(1.1);
 }
 
 .descriptionCard {

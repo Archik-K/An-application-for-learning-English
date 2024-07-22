@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Card from "./Card";
+import React from "react";
+import WordCardSlider from "./WordCardSlider";
 
 const data = [
 	{
@@ -28,27 +28,7 @@ const data = [
 ];
 
 function List() {
-	const [selectedCard, setSelectedCard] = useState(null);
-
-	const handleSelect = (index) => {
-		setSelectedCard(index);
-	};
-
-	return (
-		<>
-			{data.map((card, index) => (
-				<Card
-					key={index}
-					imgLink={card.imgLink}
-					name={card.name}
-					title={card.title}
-					briefly={card.briefly}
-					isSelected={selectedCard === index}
-					onSelect={() => handleSelect(index)}
-				/>
-			))}
-		</>
-	);
+	return <WordCardSlider words={data} />;
 }
 
 export default List;
