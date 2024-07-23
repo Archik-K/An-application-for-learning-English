@@ -37,3 +37,8 @@
 		transform: rotate(360deg);
 	}
 }
+
+/* App.module.css */
+.container {
+	padding-top: 60px; /* Учитываем высоту фиксированного заголовка */
+}

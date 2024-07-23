@@ -119,17 +119,17 @@ function WordList() {
 	return (
 		<table className={styles.table}>
 			<thead>
-				<tr>
-					<th>English</th>
-					<th>Transcription</th>
-					<th>Russian</th>
-					<th>Actions</th>
+				<tr className={styles.tr}>
+					<th className={styles.th}>English</th>
+					<th className={styles.th}>Transcription</th>
+					<th className={styles.th}>Russian</th>
+					<th className={styles.th}>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				{words.map((word) => (
-					<tr key={word.id}>
-						<td>
+					<tr key={word.id} className={styles.tr}>
+						<td className={styles.td}>
 							{editId === word.id ? (
 								<input
 									type="text"
@@ -142,7 +142,7 @@ function WordList() {
 								word.english
 							)}
 						</td>
-						<td>
+						<td className={styles.td}>
 							{editId === word.id ? (
 								<input
 									type="text"
@@ -155,7 +155,7 @@ function WordList() {
 								word.transcription
 							)}
 						</td>
-						<td>
+						<td className={styles.td}>
 							{editId === word.id ? (
 								<input
 									type="text"
@@ -168,7 +168,7 @@ function WordList() {
 								word.russian
 							)}
 						</td>
-						<td>
+						<td className={styles.td}>
 							{editId === word.id ? (
 								<>
 									<button

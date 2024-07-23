@@ -53,3 +53,8 @@
 	padding: 8px;
 	box-sizing: border-box;
 }
+
+h1 {
+	display: flex;
+	justify-content: center;
+}
