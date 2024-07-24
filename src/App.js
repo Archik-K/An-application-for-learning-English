@@ -4,6 +4,7 @@ import Header from "./component/Header";
 import Footer from "./component/Footer";
 import Home from "./component/Home";
 import List from "./component/List";
+import NotFound from "./component/NotFound";
 import styles from "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/list" element={<List />} />
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 				<Footer />
 			</div>
@@ -22,7 +24,6 @@ function App() {
 }
 
 export default App;
-
 /* //Если не отображается сайт, то код ниже надо скопировать и удалить, потом обратно его вернуть и всё работает.
 //Я просто не додумалась, как иначе сделать)
 
