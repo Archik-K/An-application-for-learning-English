@@ -10,7 +10,6 @@ const useStudiedWords = () => {
 			return newWords;
 		});
 	};
-
 	return [studiedWords.size, incrementStudiedCount];
 };
 
