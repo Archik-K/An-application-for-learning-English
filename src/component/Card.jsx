@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+// components/Card.js
+import React, { useRef, useEffect } from "react";
 import styles from "./Card.module.css";
 
-const Card = ({ imgLink, name, title, briefly, isSelected, onSelect }) => {
-	const [showTranslation, setShowTranslation] = useState(false);
+const Card = ({
+	imgLink,
+	name,
+	title,
+	briefly,
+	showTranslation,
+	onShowTranslation,
+}) => {
+	const buttonRef = useRef(null);
 
-	const cardClass = isSelected
-		? `${styles.Card} ${styles.selected}`
-		: styles.Card;
+	useEffect(() => {
+		if (buttonRef.current && !showTranslation) {
+			buttonRef.current.focus();
+		}
+	}, [showTranslation]);
 
 	const handleShowTranslation = (e) => {
 		e.stopPropagation();
-		setShowTranslation(true);
+		onShowTranslation();
 	};
 
 	return (
-		<div className={cardClass} onClick={onSelect}>
+		<div className={styles.Card}>
 			<img src={imgLink} alt={title} className={styles.image} />
 			<h2>{title}</h2>
 			<p>{name}</p>
@@ -22,6 +32,7 @@ const Card = ({ imgLink, name, title, briefly, isSelected, onSelect }) => {
 				<p className={styles.descriptionCard}>{briefly}</p>
 			) : (
 				<button
+					ref={buttonRef}
 					className={styles.translationButton}
 					onClick={handleShowTranslation}
 				>
