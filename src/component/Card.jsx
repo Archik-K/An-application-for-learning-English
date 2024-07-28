@@ -1,5 +1,5 @@
-// components/Card.js
-import React, { useRef, useEffect } from "react";
+import React from "react";
+import useFocus from "../hooks/useFocus"; // импортируем хук
 import styles from "./Card.module.css";
 
 const Card = ({
@@ -10,13 +10,7 @@ const Card = ({
 	showTranslation,
 	onShowTranslation,
 }) => {
-	const buttonRef = useRef(null);
-
-	useEffect(() => {
-		if (buttonRef.current && !showTranslation) {
-			buttonRef.current.focus();
-		}
-	}, [showTranslation]);
+	const buttonRef = useFocus([showTranslation]); // используем хук
 
 	const handleShowTranslation = (e) => {
 		e.stopPropagation();

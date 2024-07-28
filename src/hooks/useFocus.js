@@ -1,16 +1,16 @@
-// hooks/useFocus.js
-import { useRef, useEffect } from "react";
+// src/hooks/useFocus.js
+import { useEffect, useRef } from "react";
 
-const useFocus = (deps = []) => {
-	const elementRef = useRef(null);
+const useFocus = (dependencies = []) => {
+	const ref = useRef(null);
 
 	useEffect(() => {
-		if (elementRef.current) {
-			elementRef.current.focus();
+		if (ref.current) {
+			ref.current.focus();
 		}
-	}, deps);
+	}, dependencies); // Устанавливаем фокус, когда изменяются зависимости
 
-	return elementRef;
+	return ref;
 };
 
 export default useFocus;

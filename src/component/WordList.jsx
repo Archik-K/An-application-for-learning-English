@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./WordList.module.css";
 
 function WordList() {
@@ -91,19 +91,50 @@ function WordList() {
 		transcription: "",
 		russian: "",
 	});
+	const [errors, setErrors] = useState({
+		english: false,
+		transcription: false,
+		russian: false,
+	});
 
 	const startEdit = (id, word) => {
 		setEditId(id);
 		setEditWord(word);
+		setErrors({ english: false, transcription: false, russian: false });
 	};
 
 	const deleteWord = (id) => {
 		setWords(words.filter((word) => word.id !== id));
 	};
 
+	const validateFields = () => {
+		const { english, transcription, russian } = editWord;
+		const newErrors = {
+			english: !english.trim(),
+			transcription: !transcription.trim(),
+			russian: !russian.trim(),
+		};
+		setErrors(newErrors);
+		return !Object.values(newErrors).includes(true);
+	};
+
 	const saveEdit = () => {
-		setWords(words.map((word) => (word.id === editId ? editWord : word)));
-		cancelEdit();
+		if (validateFields()) {
+			if (editId) {
+				// Update existing word
+				console.log("Updated Word:", editWord);
+				setWords(words.map((word) => (word.id === editId ? editWord : word)));
+			} else {
+				// Add new word (when editId is null)
+				const newId = (Date.now() + Math.random()).toString(); // Generate a unique ID
+				const newWord = { id: newId, ...editWord };
+				setWords([...words, newWord]);
+				console.log("New Word Added:", newWord);
+			}
+			cancelEdit();
+		} else {
+			alert("Please fill out all fields.");
+		}
 	};
 
 	const cancelEdit = () => {
@@ -116,95 +147,148 @@ function WordList() {
 		setEditWord((prevState) => ({ ...prevState, [name]: value }));
 	};
 
+	const isSaveDisabled = useMemo(() => !validateFields(), [editWord]);
+
 	return (
-		<table className={styles.table}>
-			<thead>
-				<tr className={styles.tr}>
-					<th className={styles.th}>English</th>
-					<th className={styles.th}>Transcription</th>
-					<th className={styles.th}>Russian</th>
-					<th className={styles.th}>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{words.map((word) => (
-					<tr key={word.id} className={styles.tr}>
-						<td className={styles.td}>
-							{editId === word.id ? (
-								<input
-									type="text"
-									name="english"
-									value={editWord.english}
-									onChange={handleChange}
-									className={styles.input}
-								/>
-							) : (
-								word.english
-							)}
-						</td>
-						<td className={styles.td}>
-							{editId === word.id ? (
-								<input
-									type="text"
-									name="transcription"
-									value={editWord.transcription}
-									onChange={handleChange}
-									className={styles.input}
-								/>
-							) : (
-								word.transcription
-							)}
-						</td>
-						<td className={styles.td}>
-							{editId === word.id ? (
-								<input
-									type="text"
-									name="russian"
-									value={editWord.russian}
-									onChange={handleChange}
-									className={styles.input}
-								/>
-							) : (
-								word.russian
-							)}
-						</td>
-						<td className={styles.td}>
-							{editId === word.id ? (
-								<>
-									<button
-										onClick={saveEdit}
-										className={`${styles.button} ${styles.buttonSave}`}
-									>
-										Save
-									</button>
-									<button
-										onClick={cancelEdit}
-										className={`${styles.button} ${styles.buttonCancel}`}
-									>
-										Cancel
-									</button>
-								</>
-							) : (
-								<>
-									<button
-										onClick={() => startEdit(word.id, word)}
-										className={`${styles.button} ${styles.buttonEdit}`}
-									>
-										Edit
-									</button>
-									<button
-										onClick={() => deleteWord(word.id)}
-										className={`${styles.button} ${styles.buttonDelete}`}
-									>
-										Delete
-									</button>
-								</>
-							)}
-						</td>
+		<div>
+			<table className={styles.table}>
+				<thead>
+					<tr className={styles.tr}>
+						<th className={styles.th}>English</th>
+						<th className={styles.th}>Transcription</th>
+						<th className={styles.th}>Russian</th>
+						<th className={styles.th}>Actions</th>
 					</tr>
-				))}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{words.map((word) => (
+						<tr key={word.id} className={styles.tr}>
+							<td className={styles.td}>
+								{editId === word.id ? (
+									<input
+										type="text"
+										name="english"
+										value={editWord.english}
+										onChange={handleChange}
+										className={`${styles.input} ${
+											errors.english ? styles.inputError : ""
+										}`}
+									/>
+								) : (
+									word.english
+								)}
+							</td>
+							<td className={styles.td}>
+								{editId === word.id ? (
+									<input
+										type="text"
+										name="transcription"
+										value={editWord.transcription}
+										onChange={handleChange}
+										className={`${styles.input} ${
+											errors.transcription ? styles.inputError : ""
+										}`}
+									/>
+								) : (
+									word.transcription
+								)}
+							</td>
+							<td className={styles.td}>
+								{editId === word.id ? (
+									<input
+										type="text"
+										name="russian"
+										value={editWord.russian}
+										onChange={handleChange}
+										className={`${styles.input} ${
+											errors.russian ? styles.inputError : ""
+										}`}
+									/>
+								) : (
+									word.russian
+								)}
+							</td>
+							<td className={styles.td}>
+								{editId === word.id ? (
+									<>
+										<button
+											onClick={saveEdit}
+											className={`${styles.button} ${styles.buttonSave}`}
+											disabled={isSaveDisabled}
+										>
+											Save
+										</button>
+										<button
+											onClick={cancelEdit}
+											className={`${styles.button} ${styles.buttonCancel}`}
+										>
+											Cancel
+										</button>
+									</>
+								) : (
+									<>
+										<button
+											onClick={() => startEdit(word.id, word)}
+											className={`${styles.button} ${styles.buttonEdit}`}
+										>
+											Edit
+										</button>
+										<button
+											onClick={() => deleteWord(word.id)}
+											className={`${styles.button} ${styles.buttonDelete}`}
+										>
+											Delete
+										</button>
+									</>
+								)}
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+			{editId === null && (
+				<div>
+					<h2>Add New Word</h2>
+					<input
+						type="text"
+						name="english"
+						value={editWord.english}
+						onChange={handleChange}
+						placeholder="English"
+						className={`${styles.input} ${
+							errors.english ? styles.inputError : ""
+						}`}
+					/>
+					<input
+						type="text"
+						name="transcription"
+						value={editWord.transcription}
+						onChange={handleChange}
+						placeholder="Transcription"
+						className={`${styles.input} ${
+							errors.transcription ? styles.inputError : ""
+						}`}
+					/>
+					<input
+						type="text"
+						name="russian"
+						value={editWord.russian}
+						onChange={handleChange}
+						placeholder="Russian"
+						className={`${styles.input} ${
+							errors.russian ? styles.inputError : ""
+						}`}
+					/>
+					<button
+						onClick={saveEdit}
+						className={`${styles.button} ${styles.buttonSave}`}
+						disabled={isSaveDisabled}
+					>
+						Add
+					</button>
+				</div>
+			)}
+		</div>
 	);
 }
 
